@@ -12,7 +12,7 @@ const burger = props => {
     .reduce((arr, el) => {
       return arr.concat(el);
     }, []); // reduce the array to one dimension to get the exact length
-  console.log(transformedIngredients.length);
+  // console.log(transformedIngredients.length);
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding some ingredients ;)</p>;
   }

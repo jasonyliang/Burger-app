@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "./BurgerIngredient.css";
 import Proptypes from "prop-types";
 

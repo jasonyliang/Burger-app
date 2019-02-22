@@ -26,3 +26,13 @@
     display: none;
   }
 }
+
+.Menu {
+  background-color: brown;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  border: none;
+  display: inline-block;
+}

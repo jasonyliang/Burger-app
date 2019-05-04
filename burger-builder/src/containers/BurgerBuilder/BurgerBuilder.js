@@ -21,7 +21,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     checkingout: false,
     loading: false,
-    error: false;
+    error: false
   };
   componentDidMount() {
     axios
@@ -30,7 +30,7 @@ class BurgerBuilder extends Component {
         this.setState({ ingredient: response.data });
       })
       .catch(error => {
-        this.setState({error: error })
+        this.setState({ error: error });
       });
   }
   updatePurchasability = updates => {
@@ -118,7 +118,11 @@ class BurgerBuilder extends Component {
     }
     let orderSummary = null;
 
-    let burger = this.state.error? <p>Ingredients can't be loaded</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Ingredients can't be loaded</p>
+    ) : (
+      <Spinner />
+    );
     if (this.state.ingredient) {
       burger = (
         <>

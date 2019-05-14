@@ -24,14 +24,14 @@ class BurgerBuilder extends Component {
     error: false
   };
   componentDidMount() {
-    axios
-      .get("https://react-burger-project-f4954.firebaseio.com/ingredients.json")
-      .then(response => {
-        this.setState({ ingredient: response.data });
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
+    // axios
+    //   .get("https://react-burger-project-f4954.firebaseio.com/ingredients.json")
+    //   .then(response => {
+    //     this.setState({ ingredient: response.data });
+    //   })
+    //   .catch(error => {
+    //     this.setState({ error: error });
+    //   });
   }
   updatePurchasability = updates => {
     const sum = Object.keys(updates)

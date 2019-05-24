@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 const initialState = {
   ingredients: null,
@@ -16,35 +17,45 @@ const INGREDIENT_PRICE = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENTS:
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-        },
+      const updatedIngredient = {
+        [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+      };
+      const updatedIngredients = updateObject(
+        state.ingredients,
+        updatedIngredient
+      );
+
+      const updatedState = {
+        ingredients: updatedIngredients,
         totalPrice: state.totalPrice + INGREDIENT_PRICE[action.ingredientName]
       };
+      return updateObject(state, updatedState);
     case actionTypes.REMOVE_INGREDIENTS:
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-        },
+      const updatedIngredient = {
+        [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+      };
+      const updatedIngredients = updateObject(
+        state.ingredients,
+        updatedIngredient
+      );
+
+      const updatedState = {
+        ingredients: updatedIngredients,
         totalPrice: state.totalPrice - INGREDIENT_PRICE[action.ingredientName]
       };
+      return updateObject(state, updatedState);
+
     case actionTypes.SET_INGREDIENTS:
-      return {
-        ...state,
+      const updatedState = {
         ingredients: action.ingredients,
         error: false,
         totalPrice: 4
       };
+      return updateObject(state, updatedState);
     case actionTypes.FETECH_INGREDIENT_FAILED:
-      return {
-        ...state,
+      return updateObject(state, {
         error: true
-      };
+      });
     default:
       return state;
   }

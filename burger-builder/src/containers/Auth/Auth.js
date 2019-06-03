@@ -51,25 +51,21 @@ class Auth extends Component {
     return isValid;
   };
 
-  inputChangedHandler = (event, inputIdentifier) => {
-    const updatedForm = { ...this.state.controls };
-    const updatedFormElement = { ...updatedForm[inputIdentifier] };
-    updatedFormElement.value = event.target.value;
-    if (updatedForm[inputIdentifier].validation) {
-      updatedFormElement.valid = this.checkValidity(
-        event.target.value,
-        updatedFormElement.validation
-      );
-      updatedFormElement.touched = true;
-    }
+  inputChangedHandler = (event, controlName) => {
+    const updatedControls = {
+      ...this.state.controls,
+      [controlName]: {
+        ...this.state.controls[controlName],
+        value: event.target.value,
+        valid: this.checkValidity(
+          event.target.value,
+          this.state.controls[controlName].validation
+        ),
+        touched: true
+      }
+    };
 
-    updatedForm[inputIdentifier] = updatedFormElement;
-
-    let formIsValid = true;
-    for (let identifier in updatedForm) {
-      formIsValid = updatedForm[identifier].valid && formIsValid;
-    }
-    this.setState({ controls: updatedForm, formIsValid: formIsValid });
+    this.setState({ controls: updatedControls });
   };
 
   render() {

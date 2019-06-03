@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import classes from "./Auth.css";
 
 class Auth extends Component {
   state = {
@@ -35,6 +36,42 @@ class Auth extends Component {
       }
     }
   };
+
+  checkValidity = (value, rules) => {
+    let isValid = true;
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+    return isValid;
+  };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedForm = { ...this.state.controls };
+    const updatedFormElement = { ...updatedForm[inputIdentifier] };
+    updatedFormElement.value = event.target.value;
+    if (updatedForm[inputIdentifier].validation) {
+      updatedFormElement.valid = this.checkValidity(
+        event.target.value,
+        updatedFormElement.validation
+      );
+      updatedFormElement.touched = true;
+    }
+
+    updatedForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let identifier in updatedForm) {
+      formIsValid = updatedForm[identifier].valid && formIsValid;
+    }
+    this.setState({ controls: updatedForm, formIsValid: formIsValid });
+  };
+
   render() {
     const formElements = [];
     for (let key in this.state.controls) {
@@ -57,7 +94,7 @@ class Auth extends Component {
       />
     ));
     return (
-      <div>
+      <div className={classes.Auth}>
         <form>
           {form}
           <Button btnType="Success">SUBMIT</Button>

@@ -8,7 +8,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrder(this.props.token);
+    this.props.onFetchOrder(this.props.token, this.props.userID);
     // axios
     //   .get("/orders.json")
     //   .then(res => {
@@ -42,13 +42,15 @@ const mapStateToProps = state => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userID: state.auth.userID
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrder: token => dispatch(actions.fetchOrders(token))
+    onFetchOrder: (token, userID) =>
+      dispatch(actions.fetchOrders(token, userID))
   };
 };
 
